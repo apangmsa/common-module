@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 @Slf4j
-@RestControllerAdvice("org.spartahub")
+@RestControllerAdvice("org.iimsa")
 public class GlobalExceptionAdviceImpl implements GlobalExceptionAdvice {
 
     // 직접 정의한 CustomException 처리
