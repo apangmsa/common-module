@@ -3,7 +3,6 @@ package org.iimsa.config;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.iimsa.common.exception.GlobalExceptionAdvice;
-import org.iimsa.common.exception.GlobalExceptionAdviceImpl;
 import org.iimsa.common.filter.MdcLoggingFilter;
 import org.iimsa.common.response.CommonResponseAdvice;
 import org.iimsa.config.event.EventConfig;
@@ -15,10 +14,10 @@ import org.iimsa.config.security.CustomAccessDeniedHandler;
 import org.iimsa.config.security.CustomAuthenticationEntryPoint;
 import org.iimsa.config.security.LoginFilter;
 import org.iimsa.config.security.SecurityConfig;
-import org.iimsa.config.security.SecurityConfigImpl;
+import org.iimsa.config.web.PaginationConfig;
+import org.iimsa.config.web.WebConfig;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.autoconfigure.AutoConfiguration;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Import;
@@ -32,7 +31,9 @@ import org.springframework.web.servlet.HandlerExceptionResolver;
         EventConfig.class,
         JPAConfig.class,
         JsonConfig.class,
-        KafkaConfig.class
+        KafkaConfig.class,
+        PaginationConfig.class,
+        WebConfig.class
 })
 public class AppCtx {
 
@@ -51,21 +52,17 @@ public class AppCtx {
         return new CustomAccessDeniedHandler(objectMapper);
     }
 
-
-    // SecurityConfig로 등록된 빈이 없다면 등록
     @Bean
-    @ConditionalOnMissingBean(SecurityConfig.class)
     public SecurityConfig securityConfig(LoginFilter loginFilter,
                                          CustomAuthenticationEntryPoint customAuthenticationEntryPoint,
                                          CustomAccessDeniedHandler accessDeniedHandler) {
-        return new SecurityConfigImpl(loginFilter, customAuthenticationEntryPoint, accessDeniedHandler);
+        return new SecurityConfig(loginFilter, customAuthenticationEntryPoint, accessDeniedHandler);
     }
 
     // 전역 에러 출력 처리, GlobalExceptionAdvice로 등록된 빈이 없을때 기본 설정으로 등록됨
     @Bean
-    @ConditionalOnMissingBean(GlobalExceptionAdvice.class)
     public GlobalExceptionAdvice globalExceptionAdvice() {
-        return new GlobalExceptionAdviceImpl();
+        return new GlobalExceptionAdvice();
     }
 
     @Bean
