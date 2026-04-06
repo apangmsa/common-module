@@ -43,7 +43,7 @@ dependencies {
     api 'io.github.resilience4j:resilience4j-circuitbreaker'
     api 'io.github.resilience4j:resilience4j-retry'
 
-    api 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.5.0'
+    api 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.8.16'
 
     api "com.github.danielwegener:logback-kafka-appender:0.2.0-RC2"
     api 'net.logstash.logback:logstash-logback-encoder:7.4'
