@@ -18,7 +18,7 @@
             <customFields>{"service_name":"${appName}"}</customFields>
         </encoder>
 
-        <topic>spartahub-logs</topic>
+        <topic>ticketing-logs</topic>
         <producerConfig>bootstrap.servers=${BOOTSTRAP_SERVERS:-localhost:9092}</producerConfig>
         <producerConfig>acks=1</producerConfig>
         <producerConfig>linger.ms=1000</producerConfig>
